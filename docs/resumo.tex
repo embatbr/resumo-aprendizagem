@@ -28,6 +28,15 @@
 \newcommand{\figureref}[1]{Fig. (\ref{fig:#1})}
 \newcommand{\equationref}[1]{Eq. (\ref{eq:#1})}
 \newcommand{\bigsum}{\displaystyle\sum}
+\newcommand{\twopartdef}[4]
+{
+    \left\{
+        \begin{array}{ll}
+            #1 & \mbox{se } #2 \\
+            #3 & \mbox{se } #4
+        \end{array}
+    \right.
+}
 
 
 \begin{document}
@@ -63,7 +72,7 @@ O \textbf{estado natural} é denotado por $\omega$, de modo que $\omega = \omega
     \label{eq:sum_priori_prob_to_one}
 \end{equation}
 
-\noindent refletindo o conhecimento prévio da chance de um elemento da classe $\omega_i$ aparecer. A \textbf{regra de decisão} seria: Decida $\omega_i$ para $\max_i P(\omega_i)$. Neste caso a classe $\omega_i$ sempre é escolhida e a probabilidade de erro é dada por:
+\noindent refletindo o conhecimento prévio da chance de um elemento da classe $\omega_i$ aparecer. A \textbf{regra de decisão} seria: decida $\omega_i$ para $\max_i P(\omega_i)$. Neste caso a classe $\omega_i$ sempre é escolhida e a probabilidade de erro é dada por:
 
 \begin{equation}
     P_{err}(\omega_i) = 1 - P(\omega_i).
@@ -100,14 +109,14 @@ A fórmula de Bayes pode ser expressa em português como
     \label{eq:bayes}
 \end{equation}
 
-\figureref{posteriori_prob} mostra a probabilidade a posteriori das classes $\omega_1$ e $\omega_2$ para um conjunto de valores de $x$. A regra de decisão muda para: Decida $\omega_i$ se $\omega_i$ minimiza $P(erro|x)$, onde
+\figureref{posteriori_prob} mostra a probabilidade a posteriori das classes $\omega_1$ e $\omega_2$ para um conjunto de valores de $x$. A regra de decisão muda para: decida $\omega_i$ se $\omega_i$ minimiza $P(erro|x)$, onde
 
 \begin{equation}
     P(erro|x) = \sum_{j\neq i} P(\omega_j|x),
     \label{eq:bayes}
 \end{equation}
 
-\noindent ou simplesmente $P(erro|x) = 1 - P(\omega_i|x)$. Então a regra torna-se: Decida $\omega_i$ para $\max_i P(\omega_i|x)$
+\noindent ou simplesmente $P(erro|x) = 1 - P(\omega_i|x)$. Então a regra torna-se: decida $\omega_i$ para $\max_i P(\omega_i|x)$
 
 \begin{figure}[ht]
     \centering
@@ -123,7 +132,7 @@ Esta regra minimiza a probabilidade média de erro, dada por
     \label{eq:bayes}
 \end{equation}
 
-É de fácil compreensão que a característica $x$ pode ser trocada por um vetor de características $\mathbf{x} = (x_1, x_2, ..., x_d)$, onde $\mathbf{x}$ pertence ao espaço $\mathbf{R}^d$.
+É de fácil compreensão que a característica $x$ pode ser trocada por um vetor de características $\mathbf{x} = (x_1, x_2, ..., x_d)$, onde $\mathbf{x}$ pertence ao espaço $\mathbf{R}^d$ (espaço de entradas) que decide $\omega_i$ é denotada por $R_i$..
 
 Outras ações além de apenas classificar um elemento podem ser tomadas, como por exemplo a \textbf{rejeição}: recusar-se a tomar uma decisão; uma opção válida quando o custo de ser indeciso não é tão alto. Para isso \textbf{funções de custo} são inseridas, permitindo tratar de situações onde alguns erros de classificação são mais importantes que outros.
 
@@ -144,5 +153,28 @@ A regra de decisão geral é uma função $\alpha(\mathbf{x})$ que diz qual aç�
 \end{equation}
 
 O risco global mínimo é chamado de \textbf{risco de Bayes}, denotado por $R^*$, sendo a melhor perfomance alcançável.
+
+Para evitar erros, a regra de decisão procurada é aquela que minimiza a probabilidade de erro, i.e. a \textbf{taxa de erro}. A função de custo de interesse para este caso é a chamada \textbf{simétrica} ou \textbf{zero-um},
+
+\begin{equation}
+    \lambda(\alpha_i|\omega_j) = \twopartdef{0}{i=j}{1}{i \neq j} \hfill i, j = 1, ..., c.
+    \label{eq:loss_zero_one}
+\end{equation}
+
+Como todos os erros tem custo igual, o risco condicional é dado por
+
+\begin{equation}
+    R(\alpha_i|\mathbf{x}) = 1 - P(\omega_i|\mathbf{x})
+    \label{eq:conditional_risk_zero_one}
+\end{equation}
+
+\noindent com $P(\omega_i|\mathbf{x})$ sendo a probabilidade condicional da ação $\alpha_i$ estar correta. A regra de decisao neste caso continua: decida $\omega_i$ para $\max_i P(\omega_i|x)$. A região em $\mathbf{R}^d$ (espaço de entradas) que decide $\omega_i$ é denotada por $\mathcal{R}_i$.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[scale=0.5]{decision_region}
+    \caption{Se a penalização de classificar $\omega_1$ como $\omega_2$ for maior que o oposto, então a razão tende ao threshold $\theta_b$.}
+    \label{fig:decision_region}
+\end{figure}
 
 \end{document}

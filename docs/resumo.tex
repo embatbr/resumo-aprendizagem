@@ -45,7 +45,7 @@
 
 \begin{abstract}
 \begin{itshape}
-Este documento tem por finalidade ser um resumo dos assuntos abordados na disciplina \emph{Aprendizagem de Máquina} do período 2014-2 do CIn-UFPE, ministrada pelos professores Francisco Carvalho e Teresa Ludermir. A maioria do documento referencia o livro ``Pattern Classification", de Duda, Hart e Stork. Os códigos utilizados como exercício de fixação encontram-se em \normalfont{https://github.com/embatbr/aprendizagem}.
+Este documento tem por finalidade ser um resumo dos assuntos abordados na disciplina \emph{Aprendizagem de Máquina} do período 2014-2 do CIn-UFPE, ministrada pelos professores Francisco Carvalho e Teresa Ludermir. A maioria do documento referencia o livro ``Pattern Classification", de Duda, Hart e Stork. Os códigos utilizados como exercício de fixação encontram-se em \normalfont{github.com/embatbr/resumo-aprendizagem}.
 \end{itshape}
 \end{abstract}
 
@@ -122,5 +122,27 @@ Esta regra minimiza a probabilidade média de erro, dada por
     P(erro) = \int_{-\infty}^{\infty} P(erro|x)p(x) dx.
     \label{eq:bayes}
 \end{equation}
+
+É de fácil compreensão que a característica $x$ pode ser trocada por um vetor de características $\mathbf{x} = (x_1, x_2, ..., x_d)$, onde $\mathbf{x}$ pertence ao espaço $\mathbf{R}^d$.
+
+Outras ações além de apenas classificar um elemento podem ser tomadas, como por exemplo a \textbf{rejeição}: recusar-se a tomar uma decisão; uma opção válida quando o custo de ser indeciso não é tão alto. Para isso \textbf{funções de custo} são inseridas, permitindo tratar de situações onde alguns erros de classificação são mais importantes que outros.
+
+Seja $\{\omega_1, ..., \omega_c\}$ o conjunto finito de $c$ classes e seja $\{\alpha_1, ..., \alpha_a\}$ o conjunto finito de possíveis ações. A função de custo $\lambda(\alpha_i|\omega_j)$ descreve o custo de tomar a ação $\alpha_i$ quando a classe é $\omega_j$. Logo, observado um $\mathbf{x}$ em particular, tomar a ação $\alpha_i$ quando a classe é $\omega_j$ leva a um custo esperado (\textbf{risco})
+
+\begin{equation}
+    R(\alpha_i|\mathbf{x}) = \sum_{j=1}^c \lambda(\alpha_i|\omega_j) P(\omega_j|\mathbf{x}).
+    \label{eq:conditional_risk}
+\end{equation}
+
+$R(\alpha_i|\mathbf{x})$ é chamado de \textbf{risco condicional}. Qualquer que seja o $\mathbf{x}$ observado, o risco pode ser minimizado selecionando a ação que minimiza $R(\alpha_i|\mathbf{x})$.
+
+A regra de decisão geral é uma função $\alpha(\mathbf{x})$ que diz qual ação tomar para cada possível observação, ou seja, para cada $\mathbf{x}$ a \textbf{função de decisão} $\alpha(\mathbf{x})$ assume um dos $a$ valores $\alpha_1, ..., \alpha_a$. Logo, o risco global é dado por
+
+\begin{equation}
+    R = \int R(\alpha(\mathbf{x}))p(\mathbf{x})d\mathbf{x}.
+    \label{eq:conditional_risk}
+\end{equation}
+
+O risco global mínimo é chamado de \textbf{risco de Bayes}, denotado por $R^*$, sendo a melhor perfomance alcançável.
 
 \end{document}

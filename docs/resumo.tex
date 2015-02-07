@@ -61,6 +61,8 @@ Este documento tem por finalidade ser um resumo dos assuntos abordados na discip
 
 \section{Teoria da Decisão Bayesiana}
 
+\subsection{Introdução}
+
 Teoria da Decisão Bayesiana é uma abordagem estatística para a classificação de
 padrões, baseada em quantificar os tradeoffs associados a tomar uma determinada
 decisão (classificar) utilizando probabilidade e considerando os custos associados.
@@ -72,7 +74,14 @@ O \textbf{estado natural} é denotado por $\omega$, de modo que $\omega = \omega
     \label{eq:sum_priori_prob_to_one}
 \end{equation}
 
-\noindent refletindo o conhecimento prévio da chance de um elemento da classe $\omega_i$ aparecer. A \textbf{regra de decisão} seria: decida $\omega_i$ para $\max_i P(\omega_i)$. Neste caso a classe $\omega_i$ sempre é escolhida e a probabilidade de erro é dada por:
+\noindent refletindo o conhecimento prévio da chance de um elemento da classe $\omega_i$ aparecer. A \textbf{regra de decisão} fica:
+
+\begin{equation}
+    \text{Decida } \omega_i \text{ para } \max_i P(\omega_i).
+    \label{eq:decision_1}
+\end{equation}
+
+\noindent Neste caso a classe $\omega_i$ sempre é escolhida e a probabilidade de erro é dada por:
 
 \begin{equation}
     P_{err}(\omega_i) = 1 - P(\omega_i).
@@ -96,27 +105,30 @@ Sabendo $P(\omega_i)$ e $p(x|\omega_i)$, e medindo um valor $x$, a probabilidade
 \end{equation}
 
 \noindent com a evidência para $c$ classes
-
 \begin{equation}
     p(x) = \sum_{j=1}^c p(x|\omega_j)P(\omega_j).
     \label{eq:bayes}
 \end{equation}
 
-A fórmula de Bayes pode ser expressa em português como
-
+A probabilidade a posteriori das classes $\omega_1$ e $\omega_2$ para um conjunto de valores de $x$ é mostrada em \figureref{posteriori_prob}. A regra de decisão fica:
 \begin{equation}
-    posteriori = \frac{verossimilhanca \times priori}{evidencia}.
-    \label{eq:bayes}
+    \text{Decida } \omega_i \text{ se } \omega_i \text{ minimiza } P(erro|x),
+    \label{eq:decision_2}
 \end{equation}
 
-\figureref{posteriori_prob} mostra a probabilidade a posteriori das classes $\omega_1$ e $\omega_2$ para um conjunto de valores de $x$. A regra de decisão muda para: decida $\omega_i$ se $\omega_i$ minimiza $P(erro|x)$, onde
+\noindent onde
 
 \begin{equation}
     P(erro|x) = \sum_{j\neq i} P(\omega_j|x),
     \label{eq:bayes}
 \end{equation}
 
-\noindent ou simplesmente $P(erro|x) = 1 - P(\omega_i|x)$. Então a regra torna-se: decida $\omega_i$ para $\max_i P(\omega_i|x)$
+\noindent ou simplesmente $P(erro|x) = 1 - P(\omega_i|x)$. Então a regra torna-se:
+
+\begin{equation}
+    \text{Decida } \omega_i \text{ para } \max_i P(\omega_i|x),
+    \label{eq:decision_3}
+\end{equation}
 
 \begin{figure}[ht]
     \centering
@@ -132,9 +144,11 @@ Esta regra minimiza a probabilidade média de erro, dada por
     \label{eq:bayes}
 \end{equation}
 
-É de fácil compreensão que a característica $x$ pode ser trocada por um vetor de características $\mathbf{x} = (x_1, x_2, ..., x_d)$, onde $\mathbf{x}$ pertence ao espaço $\mathbf{R}^d$ (espaço de entradas) que decide $\omega_i$ é denotada por $R_i$..
+\subsection{Características Contínuas}
 
-Outras ações além de apenas classificar um elemento podem ser tomadas, como por exemplo a \textbf{rejeição}: recusar-se a tomar uma decisão; uma opção válida quando o custo de ser indeciso não é tão alto. Para isso \textbf{funções de custo} são inseridas, permitindo tratar de situações onde alguns erros de classificação são mais importantes que outros.
+É de fácil compreensão que a característica $x$ pode ser trocada por um vetor de características $\mathbf{x} = (x_1, x_2, ..., x_d)$, onde $\mathbf{x}$ pertence ao espaço $\mathbf{R}^d$ (espaço de características). A região que decide $\omega_i$ é denotada por $\mathcal{R}_i$.
+
+Outras ações além de apenas classificar um elemento podem ser tomadas, como por exemplo a \textbf{rejeição}: recusar-se a tomar uma decisão; uma opção válida quando o custo de ser indeciso é aceitável. Para isso \textbf{funções de custo} são inseridas, permitindo tratar de situações onde alguns erros de classificação são mais importantes que outros.
 
 Seja $\{\omega_1, ..., \omega_c\}$ o conjunto finito de $c$ classes e seja $\{\alpha_1, ..., \alpha_a\}$ o conjunto finito de possíveis ações. A função de custo $\lambda(\alpha_i|\omega_j)$ descreve o custo de tomar a ação $\alpha_i$ quando a classe é $\omega_j$. Logo, observado um $\mathbf{x}$ em particular, tomar a ação $\alpha_i$ quando a classe é $\omega_j$ leva a um custo esperado (\textbf{risco})
 
@@ -154,7 +168,9 @@ A regra de decisão geral é uma função $\alpha(\mathbf{x})$ que diz qual aç�
 
 O risco global mínimo é chamado de \textbf{risco de Bayes}, denotado por $R^*$, sendo a melhor perfomance alcançável.
 
-Para evitar erros, a regra de decisão procurada é aquela que minimiza a probabilidade de erro, i.e. a \textbf{taxa de erro}. A função de custo de interesse para este caso é a chamada \textbf{simétrica} ou \textbf{zero-um},
+\subsection{Classificação por Taxa de Erro Mínima}
+
+Para evitar erros, a regra de decisão procurada é aquela que minimiza a probabilidade de erro, i.e. minimiza a \textbf{taxa de erro}. A função de custo de interesse para este caso é chamada de \textbf{simétrica} ou \textbf{zero-um},
 
 \begin{equation}
     \lambda(\alpha_i|\omega_j) = \twopartdef{0}{i=j}{1}{i \neq j} \hfill i, j = 1, ..., c.
@@ -168,7 +184,11 @@ Como todos os erros tem custo igual, o risco condicional é dado por
     \label{eq:conditional_risk_zero_one}
 \end{equation}
 
-\noindent com $P(\omega_i|\mathbf{x})$ sendo a probabilidade condicional da ação $\alpha_i$ estar correta. A regra de decisao neste caso continua: decida $\omega_i$ para $\max_i P(\omega_i|x)$. A região em $\mathbf{R}^d$ (espaço de entradas) que decide $\omega_i$ é denotada por $\mathcal{R}_i$.
+\noindent com $P(\omega_i|\mathbf{x})$ sendo a probabilidade condicional da ação $\alpha_i$ estar correta. A regra de decisao neste caso continua:
+\begin{equation}
+    \text{Decida } \omega_i \text{ para } \max_i P(\omega_i|x).
+    \label{eq:decision_4}
+\end{equation}
 
 \begin{figure}[ht]
     \centering
@@ -176,5 +196,29 @@ Como todos os erros tem custo igual, o risco condicional é dado por
     \caption{Se a penalização de classificar $\omega_1$ como $\omega_2$ for maior que o oposto, então a razão tende ao threshold $\theta_b$.}
     \label{fig:decision_region}
 \end{figure}
+
+\subsection{Classificadores, Funções Discriminantes e Superfícies de Decisão}
+
+A maneira mais usual de representar classificadores de padrões é através de um conjunto de \textbf{funções discriminantes} $g_i(\mathbf{x}), i = 1, ..., c$. O classificador atribui um vetor de características $\mathbf{x}$ à classe $\omega_i$ se
+
+\begin{equation}
+    g_i(\mathbf{x}) = \max_j g_j(\mathbf{x})
+    \label{eq:discriminant_functions}
+\end{equation}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[scale=0.45]{discriminant_functions}
+    \caption{Classificador com $c$ funções discriminantes e entradas $d$-dimensional. A ação geralmente é ``escolher o maior $g_i(\mathbf{x})$".}
+    \label{fig:discriminant_functions}
+\end{figure}
+
+Para o caso geral com riscos, pode-se fazer $g_i(\mathbf{x}) = - R(\alpha_i|\mathbf{x})$, enquanto para o caso ``taxa de erro mínima", $g_i(\mathbf{x}) = P(\omega_i|\mathbf{x})$. A função discriminante $g_i(\mathbf{x})$ pode ser substituída por $f(g_i(\mathbf{x}))$, com $f(\cdot)$ sendo uma função monotonicamente crescente, com o resultado da classificação ficando inalterado.
+
+Para o caso em que $c = 2$, o classificador é chamado \textbf{dicotomizador}, e apenas uma função discriminante $g(\mathbf{x}) \equiv g_1(\mathbf{x}) - g_2(\mathbf{x})$ é necessária. Logo a regra de decisão torna-se:
+\begin{equation}
+    \text{Decida } \omega_1 \text{ se } g(\mathbf{x}) > 0 \text {; senão, } \omega_2.
+    \label{eq:decision_4}
+\end{equation}
 
 \end{document}

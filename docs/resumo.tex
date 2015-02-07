@@ -54,7 +54,7 @@
 
 \begin{abstract}
 \begin{itshape}
-Este documento tem por finalidade ser um resumo dos assuntos abordados na disciplina \emph{Aprendizagem de Máquina} do período 2014-2 do CIn-UFPE, ministrada pelos professores Francisco Carvalho e Teresa Ludermir. A maioria do documento referencia o livro ``Pattern Classification", de Duda, Hart e Stork. Os códigos utilizados como exercício de fixação encontram-se em \normalfont{github.com/embatbr/resumo-aprendizagem}.
+Este documento tem por finalidade ser um resumo dos assuntos abordados na disciplina \emph{Aprendizagem de Máquina} do período 2014-2 do CIn-UFPE, ministrada pelos professores Francisco Carvalho e Teresa Ludermir. A maioria do documento referencia o livro ``Pattern Classification", de Duda, Hart \& Stork. Os códigos utilizados como exercício de fixação encontram-se em \normalfont{github.com/embatbr/resumo-aprendizagem}.
 \end{itshape}
 \end{abstract}
 
@@ -222,5 +222,39 @@ Para o caso em que $c = 2$, o classificador é chamado \textbf{dicotomizador}, e
 \end{equation}
 
 \subsection{Características Discretas}
+
+Em muitas aplicações práticas as componentes de $\mathbf{x}$ são valores inteiros binários, ternários ou outro de ordem mais alta, de modo que $\mathbf{x}$ pode assumir apenas um dos $m$ valores discretos $\mathbf{v_1}, ..., \mathbf{v_m}$. Nestes casos, a função de densidade de probabilidade $p(\mathbf{x}|\omega_j)$ torna-se uma função de massa de probabilidade $P(\mathbf{x}|\omega_j)$ e
+
+\begin{equation}
+    \int p(\mathbf{x}|\omega_j) d\mathbf{x}
+    \label{eq:integral_pdf}
+\end{equation}
+
+\noindent é substituída por
+
+\begin{equation}
+    \sum_\mathbf{x} P(\mathbf{x}|\omega_j).
+    \label{eq:sum_pmf}
+\end{equation}
+
+\noindent Na fórmula de Bayes as densidades de probabilidade são trocadas por probabilidades
+
+\begin{equation}
+    P(\omega_j|\mathbf{x}) = \frac{P(\mathbf{x}|\omega_j)P(\omega_j)}{P(\mathbf{x})}
+    \label{eq:bayes_discrete}
+\end{equation}
+
+onde
+
+\begin{equation}
+    P(\mathbf{x}) = \sum_{j=1}^c P(\mathbf{x}|\omega_j)P(\omega_j).
+    \label{eq:bayes_discrete}
+\end{equation}
+
+A definição do risco condicional $R(\alpha|\mathbf{x})$ mantém-se inalterada.
+
+\section{Estimação Paramétrica}
+
+TODO ler seções 3.1, 3.2, 3.8 do Duda, Hart \& Stork
 
 \end{document}

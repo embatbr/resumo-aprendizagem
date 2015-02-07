@@ -213,7 +213,7 @@ A maneira mais usual de representar classificadores de padrões é através de u
     \label{fig:discriminant_functions}
 \end{figure}
 
-Para o caso geral com riscos, pode-se fazer $g_i(\mathbf{x}) = - R(\alpha_i|\mathbf{x})$, enquanto para o caso ``taxa de erro mínima", $g_i(\mathbf{x}) = P(\omega_i|\mathbf{x})$. A função discriminante $g_i(\mathbf{x})$ pode ser substituída por $f(g_i(\mathbf{x}))$, com $f(\cdot)$ sendo uma função monotonicamente crescente (e.g. logaritmo), com o resultado da classificação ficando inalterado.
+Para o caso geral com riscos, pode-se fazer $g_i(\mathbf{x}) = - R(\alpha_i|\mathbf{x})$, enquanto para o caso ``taxa de erro mínima", $g_i(\mathbf{x}) = P(\omega_i|\mathbf{x})$. A função discriminante $g_i(\mathbf{x})$ pode ser substituída por $f(g_i(\mathbf{x}))$, com $f(\cdot)$ sendo uma função monotonicamente crescente (e.g. logaritmo), com o resultado da classificação ficando inalterado. Como resultado, $\mathbf{R}^d$ é dividido em regiões de decisão $\mathcal{R}_i$ (não necessariamente conectadas) para cada classe $\omega_i$.
 
 Para o caso em que $c = 2$, o classificador é chamado \textbf{dicotomizador}, e apenas uma função discriminante $g(\mathbf{x}) \equiv g_1(\mathbf{x}) - g_2(\mathbf{x})$ é necessária. Logo a regra de decisão torna-se:
 \begin{equation}

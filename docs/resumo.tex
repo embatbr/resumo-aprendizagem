@@ -10,7 +10,9 @@
 \usepackage{mathtools}
 \usepackage{amsmath}
 \usepackage{enumitem}
-\usepackage[font={small}]{caption}
+\usepackage[font={footnotesize}]{caption}
+\usepackage{bm}
+
 
 \topmargin      0.0cm
 \headheight     0.0cm
@@ -117,14 +119,12 @@ A probabilidade a posteriori das classes $\omega_1$ e $\omega_2$ para um conjunt
 \end{equation}
 
 \noindent onde
-
 \begin{equation}
     P(erro|x) = \sum_{j\neq i} P(\omega_j|x),
     \label{eq:bayes}
 \end{equation}
 
 \noindent ou simplesmente $P(erro|x) = 1 - P(\omega_i|x)$. Então a regra torna-se:
-
 \begin{equation}
     \text{Decida } \omega_i \text{ se } i = \max_j P(\omega_j|x),
     \label{eq:decision_3}
@@ -138,7 +138,6 @@ A probabilidade a posteriori das classes $\omega_1$ e $\omega_2$ para um conjunt
 \end{figure}
 
 Esta regra minimiza a probabilidade média de erro, dada por
-
 \begin{equation}
     P(erro) = \int_{-\infty}^{\infty} P(erro|x)p(x) dx.
     \label{eq:bayes}
@@ -146,45 +145,44 @@ Esta regra minimiza a probabilidade média de erro, dada por
 
 \subsection{Características Contínuas}
 
-É de fácil compreensão que a característica $x$ pode ser trocada por um vetor de características $\mathbf{x} = (x_1, x_2, ..., x_d)$, onde $\mathbf{x}$ pertence ao espaço $\mathbf{R}^d$ (espaço de características). A região que decide $\omega_i$ é denotada por $\mathcal{R}_i$.
+É de fácil compreensão que a característica $x$ pode ser trocada por um vetor de características $\boldsymbol{x} = (x_1, x_2, ..., x_d)$, onde $\boldsymbol{x}$ pertence ao espaço $\boldsymbol{R}^d$ (espaço de características). A região que decide $\omega_i$ é denotada por $\mathcal{R}_i$.
 
 Outras ações além de apenas classificar um elemento podem ser tomadas, como por exemplo a \textbf{rejeição}: recusar-se a tomar uma decisão; uma opção válida quando o custo de ser indeciso é aceitável. Para isso \textbf{funções de custo} são inseridas, permitindo tratar de situações onde alguns erros de classificação são mais importantes que outros.
 
-Seja $\{\omega_1, ..., \omega_c\}$ o conjunto finito de $c$ classes e seja $\{\alpha_1, ..., \alpha_a\}$ o conjunto finito de possíveis ações. A função de custo $\lambda(\alpha_i|\omega_j)$ descreve o custo de tomar a ação $\alpha_i$ quando a classe é $\omega_j$. Logo, observado um $\mathbf{x}$ em particular, tomar a ação $\alpha_i$ quando a classe é $\omega_j$ leva a um custo esperado (\textbf{risco})
-
+Seja $\{\omega_1, ..., \omega_c\}$ o conjunto finito de $c$ classes e seja $\{\alpha_1, ..., \alpha_a\}$ o conjunto finito de possíveis ações. A função de custo $\lambda(\alpha_i|\omega_j)$ descreve o custo de tomar a ação $\alpha_i$ quando a classe é $\omega_j$. Logo, observado um $\boldsymbol{x}$ em particular, tomar a ação $\alpha_i$ quando a classe é $\omega_j$ leva a um custo esperado (\textbf{risco})
 \begin{equation}
-    R(\alpha_i|\mathbf{x}) = \sum_{j=1}^c \lambda(\alpha_i|\omega_j) P(\omega_j|\mathbf{x}).
+    R(\alpha_i|\boldsymbol{x}) = \sum_{j=1}^c \lambda(\alpha_i|\omega_j) P(\omega_j|\boldsymbol{x}).
     \label{eq:conditional_risk}
 \end{equation}
 
-$R(\alpha_i|\mathbf{x})$ é chamado de \textbf{risco condicional}. Qualquer que seja o $\mathbf{x}$ observado, o risco pode ser minimizado selecionando a ação que minimiza $R(\alpha_i|\mathbf{x})$.
+$R(\alpha_i|\boldsymbol{x})$ é chamado de \textbf{risco condicional}. Qualquer que seja o $\boldsymbol{x}$ observado, o risco pode ser minimizado selecionando a ação que minimiza $R(\alpha_i|\boldsymbol{x})$.
 
-A regra de decisão geral é uma função $\alpha(\mathbf{x})$ que diz qual ação tomar para cada possível observação, ou seja, para cada $\mathbf{x}$ a \textbf{função de decisão} $\alpha(\mathbf{x})$ assume um dos $a$ valores $\alpha_1, ..., \alpha_a$. Logo, o \textbf{risco global} é dado por
+A regra de decisão geral é uma função $\alpha(\boldsymbol{x})$ que diz qual ação tomar para cada possível observação, ou seja, para cada $\boldsymbol{x}$ a \textbf{função de decisão} $\alpha(\boldsymbol{x})$ assume um dos $a$ valores $\alpha_1, ..., \alpha_a$. Logo, o \textbf{risco global} é dado por
 
 \begin{equation}
-    R = \int R(\alpha(\mathbf{x}))p(\mathbf{x})d\mathbf{x}.
+    R = \int R(\alpha(\boldsymbol{x}))p(\boldsymbol{x})d\boldsymbol{x}.
     \label{eq:conditional_risk}
 \end{equation}
 
 O risco global mínimo é chamado de \textbf{risco de Bayes}, denotado por $R^*$, sendo a melhor perfomance alcançável.
 
-\subsection{Classificação por Taxa de Erro Mínima}
+\subsection{Taxa de Erro Mínima}
 
 Para evitar erros, a regra de decisão procurada é aquela que minimiza a probabilidade de erro, i.e. minimiza a \textbf{taxa de erro}. A função de custo de interesse para este caso é chamada de \textbf{simétrica} ou \textbf{zero-um},
 
 \begin{equation}
-    \lambda(\alpha_i|\omega_j) = \twopartdef{0}{i=j}{1}{i \neq j} \hfill i, j = 1, ..., c.
+    \lambda(\alpha_i|\omega_j) = \twopartdef{0}{i=j}{1}{i \neq j}
     \label{eq:loss_zero_one}
 \end{equation}
 
-Como todos os erros tem custo igual, o risco condicional é dado por
+\noindent para $i, j = 1, ..., c$. Como todos os erros tem custo igual, o risco condicional é dado por
 
 \begin{equation}
-    R(\alpha_i|\mathbf{x}) = 1 - P(\omega_i|\mathbf{x})
+    R(\alpha_i|\boldsymbol{x}) = 1 - P(\omega_i|\boldsymbol{x})
     \label{eq:conditional_risk_zero_one}
 \end{equation}
 
-\noindent com $P(\omega_i|\mathbf{x})$ sendo a probabilidade condicional da ação $\alpha_i$ estar correta. A regra de decisao neste caso continua:
+\noindent com $P(\omega_i|\boldsymbol{x})$ sendo a probabilidade condicional da ação $\alpha_i$ estar correta. A regra de decisao neste caso continua:
 \begin{equation}
     \text{Decida } \omega_i \text{ se } i = \max_j P(\omega_j|x).
     \label{eq:decision_4}
@@ -199,62 +197,96 @@ Como todos os erros tem custo igual, o risco condicional é dado por
 
 \subsection{Funções Discriminantes}
 
-A maneira mais usual de representar classificadores de padrões é através de um conjunto de \textbf{funções discriminantes} $g_i(\mathbf{x}), i = 1, ..., c$. O classificador atribui um vetor de características $\mathbf{x}$ à classe $\omega_i$ se
+A maneira mais usual de representar classificadores de padrões é através de um conjunto de \textbf{funções discriminantes} $g_i(\boldsymbol{x}), i = 1, ..., c$. O classificador atribui um vetor de características $\boldsymbol{x}$ à classe $\omega_i$ se
 
 \begin{equation}
-    g_i(\mathbf{x}) = \max_j g_j(\mathbf{x})
+    g_i(\boldsymbol{x}) = \max_j g_j(\boldsymbol{x})
     \label{eq:discriminant_functions}
 \end{equation}
 
 \begin{figure}[ht]
     \centering
     \includegraphics[scale=0.45]{discriminant_functions}
-    \caption{Classificador com $c$ funções discriminantes e entradas $d$-dimensional. A ação geralmente é ``escolher o maior $g_i(\mathbf{x})$".}
+    \caption{Classificador com $c$ funções discriminantes e entradas $d$-dimensional. A ação geralmente é ``escolher o maior $g_i(\boldsymbol{x})$".}
     \label{fig:discriminant_functions}
 \end{figure}
 
-Para o caso geral com riscos, pode-se fazer $g_i(\mathbf{x}) = - R(\alpha_i|\mathbf{x})$, enquanto para o caso ``taxa de erro mínima", $g_i(\mathbf{x}) = P(\omega_i|\mathbf{x})$. A função discriminante $g_i(\mathbf{x})$ pode ser substituída por $f(g_i(\mathbf{x}))$, com $f(\cdot)$ sendo uma função monotonicamente crescente (e.g. logaritmo), com o resultado da classificação ficando inalterado. Como resultado, $\mathbf{R}^d$ é dividido em regiões de decisão $\mathcal{R}_i$ (não necessariamente conectadas) para cada classe $\omega_i$.
+Para o caso geral com riscos, pode-se fazer $g_i(\boldsymbol{x}) = - R(\alpha_i|\boldsymbol{x})$, enquanto para o caso ``taxa de erro mínima", $g_i(\boldsymbol{x}) = P(\omega_i|\boldsymbol{x})$. A função discriminante $g_i(\boldsymbol{x})$ pode ser substituída por $f(g_i(\boldsymbol{x}))$, com $f(\cdot)$ sendo uma função monotonicamente crescente (e.g. logaritmo), com o resultado da classificação ficando inalterado. Como resultado, $\boldsymbol{R}^d$ é dividido em regiões de decisão $\mathcal{R}_i$ (não necessariamente conectadas) para cada classe $\omega_i$.
 
-Para o caso em que $c = 2$, o classificador é chamado \textbf{dicotomizador}, e apenas uma função discriminante $g(\mathbf{x}) \equiv g_1(\mathbf{x}) - g_2(\mathbf{x})$ é necessária. Logo a regra de decisão torna-se:
+Para o caso em que $c = 2$, o classificador é chamado \textbf{dicotomizador}, e apenas uma função discriminante $g(\boldsymbol{x}) \equiv g_1(\boldsymbol{x}) - g_2(\boldsymbol{x})$ é necessária. Logo a regra de decisão torna-se:
 \begin{equation}
-    \text{Decida } \omega_1 \text{ se } g(\mathbf{x}) > 0 \text {; senão, } \omega_2.
+    \text{Decida } \omega_1 \text{ se } g(\boldsymbol{x}) > 0 \text {; senão, } \omega_2.
     \label{eq:decision_4}
 \end{equation}
 
 \subsection{Características Discretas}
 
-Em muitas aplicações práticas as componentes de $\mathbf{x}$ são valores inteiros binários, ternários ou outro de ordem mais alta, de modo que $\mathbf{x}$ pode assumir apenas um dos $m$ valores discretos $\mathbf{v_1}, ..., \mathbf{v_m}$. Nestes casos, a função de densidade de probabilidade $p(\mathbf{x}|\omega_j)$ torna-se uma função de massa de probabilidade $P(\mathbf{x}|\omega_j)$ e
+Em muitas aplicações práticas as componentes de $\boldsymbol{x}$ são valores inteiros binários, ternários ou outro de ordem mais alta, de modo que $\boldsymbol{x}$ pode assumir apenas um dos $m$ valores discretos $\boldsymbol{v_1}, ..., \boldsymbol{v_m}$. Nestes casos, a função de densidade de probabilidade $p(\boldsymbol{x}|\omega_j)$ torna-se uma função de massa de probabilidade $P(\boldsymbol{x}|\omega_j)$ e
 
 \begin{equation}
-    \int p(\mathbf{x}|\omega_j) d\mathbf{x}
+    \int p(\boldsymbol{x}|\omega_j) d\boldsymbol{x}
     \label{eq:integral_pdf}
 \end{equation}
 
 \noindent é substituída por
 
 \begin{equation}
-    \sum_\mathbf{x} P(\mathbf{x}|\omega_j).
+    \sum_{\boldsymbol{x}} P(\boldsymbol{x}|\omega_j).
     \label{eq:sum_pmf}
 \end{equation}
 
 \noindent Na fórmula de Bayes as densidades de probabilidade são trocadas por probabilidades
 
 \begin{equation}
-    P(\omega_j|\mathbf{x}) = \frac{P(\mathbf{x}|\omega_j)P(\omega_j)}{P(\mathbf{x})}
+    P(\omega_j|\boldsymbol{x}) = \frac{P(\boldsymbol{x}|\omega_j)P(\omega_j)}{P(\boldsymbol{x})}
     \label{eq:bayes_discrete}
 \end{equation}
 
 onde
 
 \begin{equation}
-    P(\mathbf{x}) = \sum_{j=1}^c P(\mathbf{x}|\omega_j)P(\omega_j).
+    P(\boldsymbol{x}) = \sum_{j=1}^c P(\boldsymbol{x}|\omega_j)P(\omega_j).
     \label{eq:bayes_discrete}
 \end{equation}
 
-A definição do risco condicional $R(\alpha|\mathbf{x})$ mantém-se inalterada.
+A definição do risco condicional $R(\alpha|\boldsymbol{x})$ mantém-se inalterada.
 
 \section{Estimação Paramétrica}
 
-TODO ler seções 3.1, 3.2, 3.8 do Duda, Hart \& Stork
+\subsection{Introdução}
+
+Sabendo $P(\omega_i)$ e $p(\boldsymbol{x}|\omega_i)$ é possível projetar um classificador ótimo. Contudo, em aplicações reais de classificação de padrões raramente tem-se este conhecimento completo a respeito da estrutura probabilística do problema. Geralmente o que está disponível é um conhecimento superficial da situação e um conjunto de \textbf{dados de treinamento}.
+
+Como exemplo, sejam 300 objetos divididos em 2 classes de modo que a classe 1 tenha 200 objetos e a classe 2 tenha 100. Cada objeto é gerado a partir de uma das 3 gaussianas bi-variadas:
+
+\begin{description}\itemsep0pt
+    \item[1a:] $\mu_1 = 60$, $\mu_2 = 30$, $\sigma_1^2 = 9$ e $\sigma_2^2 = 144$
+    \item[1b:] $\mu_1 = 52$, $\mu_2 = 30$, $\sigma_1^2 = 9$ e $\sigma_2^2 = 9$
+    \item[2:] $\mu_1 = 45$, $\mu_2 = 22$, $\sigma_1^2 = 100$ e $\sigma_2^2 = 9$
+\end{description}
+
+\noindent Nota-se que $\boldsymbol{\Sigma}_{1a}$, $\boldsymbol{\Sigma}_{1b}$ e $\boldsymbol{\Sigma}_2$ são matrizes diagonais, reduzindo-as a vetores de variância, o que significa independência entre as variáveis.
+
+As duas figuras a seguir mostram os dados de treinamento. Na primeira, \figureref{samples_by_cluster}, os dados são divididos nos clusters gerados pelas gaussianas definidas anteriormente. Na segunda, \figureref{samples_by_class}, são dividos em duas classes.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[scale=0.3]{samples_by_cluster}
+    \caption{Classes 1a (verde), 1b (amarelo) e 2 (azul).}
+    \label{fig:samples_by_cluster}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[scale=0.3]{samples_by_class}
+    \caption{Classes 1 (vermelho) e 2 (azul).}
+    \label{fig:samples_by_class}
+\end{figure}
+
+Pode-se utilizar estas amostras para estimar as probabilidades e densidades de probabilidade desconhecidas. Para problemas de aprendizagem supervisionada, a estimação das $P(\omega_i)$ é bastante simples. Sabendo a frequência relativa de aparição de cada classe $\omega_i$ no conjunto de treinamento, pode-se estimar suas $P(\omega_i)$ (desde que o conjunto de treinamento seja uma boa representação do ``mundo real"). Contudo, estimar as $p(\boldsymbol{x}|\omega_i)$ é complicado quando se tem poucos dados, especialmente quando a dimensionalidade de $\boldsymbol{x}$ aumenta. Uma maneira mais prática é assumir cada $p(\boldsymbol{x}|\omega_i)$ como uma gaussiana, cujas média e matriz de covariância são dadas por $\boldsymbol{\mu}_i$ e $\boldsymbol{\Sigma}_i$. Logo, o problema passa de estimar uma função desconhecida $p(\boldsymbol{x}|\omega_i)$ para estimar os \textbf{parâmetros} $\boldsymbol{\mu}_i$ e $\boldsymbol{\Sigma}_i$.
+
+Para a estimação dos parâmetros, será utilizada a técnica da \textbf{máxima-verossimilhança}.
+
+\subsection{Máxima-Verossimilhança}
 
 \end{document}

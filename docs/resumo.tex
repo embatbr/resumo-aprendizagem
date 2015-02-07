@@ -77,7 +77,7 @@ O \textbf{estado natural} é denotado por $\omega$, de modo que $\omega = \omega
 \noindent refletindo o conhecimento prévio da chance de um elemento da classe $\omega_i$ aparecer. A \textbf{regra de decisão} fica:
 
 \begin{equation}
-    \text{Decida } \omega_i \text{ para } \max_i P(\omega_i).
+    \text{Decida } \omega_i \text{ se } i = \max_j P(\omega_j).
     \label{eq:decision_1}
 \end{equation}
 
@@ -126,7 +126,7 @@ A probabilidade a posteriori das classes $\omega_1$ e $\omega_2$ para um conjunt
 \noindent ou simplesmente $P(erro|x) = 1 - P(\omega_i|x)$. Então a regra torna-se:
 
 \begin{equation}
-    \text{Decida } \omega_i \text{ para } \max_i P(\omega_i|x),
+    \text{Decida } \omega_i \text{ se } i = \max_j P(\omega_j|x),
     \label{eq:decision_3}
 \end{equation}
 
@@ -159,7 +159,7 @@ Seja $\{\omega_1, ..., \omega_c\}$ o conjunto finito de $c$ classes e seja $\{\a
 
 $R(\alpha_i|\mathbf{x})$ é chamado de \textbf{risco condicional}. Qualquer que seja o $\mathbf{x}$ observado, o risco pode ser minimizado selecionando a ação que minimiza $R(\alpha_i|\mathbf{x})$.
 
-A regra de decisão geral é uma função $\alpha(\mathbf{x})$ que diz qual ação tomar para cada possível observação, ou seja, para cada $\mathbf{x}$ a \textbf{função de decisão} $\alpha(\mathbf{x})$ assume um dos $a$ valores $\alpha_1, ..., \alpha_a$. Logo, o risco global é dado por
+A regra de decisão geral é uma função $\alpha(\mathbf{x})$ que diz qual ação tomar para cada possível observação, ou seja, para cada $\mathbf{x}$ a \textbf{função de decisão} $\alpha(\mathbf{x})$ assume um dos $a$ valores $\alpha_1, ..., \alpha_a$. Logo, o \textbf{risco global} é dado por
 
 \begin{equation}
     R = \int R(\alpha(\mathbf{x}))p(\mathbf{x})d\mathbf{x}.
@@ -186,7 +186,7 @@ Como todos os erros tem custo igual, o risco condicional é dado por
 
 \noindent com $P(\omega_i|\mathbf{x})$ sendo a probabilidade condicional da ação $\alpha_i$ estar correta. A regra de decisao neste caso continua:
 \begin{equation}
-    \text{Decida } \omega_i \text{ para } \max_i P(\omega_i|x).
+    \text{Decida } \omega_i \text{ se } i = \max_j P(\omega_j|x).
     \label{eq:decision_4}
 \end{equation}
 
@@ -197,7 +197,7 @@ Como todos os erros tem custo igual, o risco condicional é dado por
     \label{fig:decision_region}
 \end{figure}
 
-\subsection{Classificadores, Funções Discriminantes e Superfícies de Decisão}
+\subsection{Funções Discriminantes}
 
 A maneira mais usual de representar classificadores de padrões é através de um conjunto de \textbf{funções discriminantes} $g_i(\mathbf{x}), i = 1, ..., c$. O classificador atribui um vetor de características $\mathbf{x}$ à classe $\omega_i$ se
 
@@ -213,12 +213,14 @@ A maneira mais usual de representar classificadores de padrões é através de u
     \label{fig:discriminant_functions}
 \end{figure}
 
-Para o caso geral com riscos, pode-se fazer $g_i(\mathbf{x}) = - R(\alpha_i|\mathbf{x})$, enquanto para o caso ``taxa de erro mínima", $g_i(\mathbf{x}) = P(\omega_i|\mathbf{x})$. A função discriminante $g_i(\mathbf{x})$ pode ser substituída por $f(g_i(\mathbf{x}))$, com $f(\cdot)$ sendo uma função monotonicamente crescente, com o resultado da classificação ficando inalterado.
+Para o caso geral com riscos, pode-se fazer $g_i(\mathbf{x}) = - R(\alpha_i|\mathbf{x})$, enquanto para o caso ``taxa de erro mínima", $g_i(\mathbf{x}) = P(\omega_i|\mathbf{x})$. A função discriminante $g_i(\mathbf{x})$ pode ser substituída por $f(g_i(\mathbf{x}))$, com $f(\cdot)$ sendo uma função monotonicamente crescente (e.g. logaritmo), com o resultado da classificação ficando inalterado.
 
 Para o caso em que $c = 2$, o classificador é chamado \textbf{dicotomizador}, e apenas uma função discriminante $g(\mathbf{x}) \equiv g_1(\mathbf{x}) - g_2(\mathbf{x})$ é necessária. Logo a regra de decisão torna-se:
 \begin{equation}
     \text{Decida } \omega_1 \text{ se } g(\mathbf{x}) > 0 \text {; senão, } \omega_2.
     \label{eq:decision_4}
 \end{equation}
+
+\subsection{Características Discretas}
 
 \end{document}

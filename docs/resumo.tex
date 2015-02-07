@@ -267,20 +267,13 @@ Como exemplo, sejam 300 objetos divididos em 2 classes de modo que a classe 1 te
 
 \noindent Nota-se que $\boldsymbol{\Sigma}_{1a}$, $\boldsymbol{\Sigma}_{1b}$ e $\boldsymbol{\Sigma}_2$ são matrizes diagonais, reduzindo-as a vetores de variância, o que significa independência entre as variáveis.
 
-As duas figuras a seguir mostram os dados de treinamento. Na primeira, \figureref{samples_by_cluster}, os dados são divididos nos clusters gerados pelas gaussianas definidas anteriormente. Na segunda, \figureref{samples_by_class}, são dividos em duas classes.
+As duas imagems em \figureref{samples} mostram os dados de treinamento. Na de cima os dados são divididos em clusters gerados pelas gaussianas definidas anteriormente. Na segunda são dividos em duas classes.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[scale=0.3]{samples_by_cluster}
+    \includegraphics[scale=0.4]{samples}
     \caption{Classes 1a (verde), 1b (amarelo) e 2 (azul).}
-    \label{fig:samples_by_cluster}
-\end{figure}
-
-\begin{figure}[ht]
-    \centering
-    \includegraphics[scale=0.3]{samples_by_class}
-    \caption{Classes 1 (vermelho) e 2 (azul).}
-    \label{fig:samples_by_class}
+    \label{fig:samples}
 \end{figure}
 
 Pode-se utilizar estas amostras para estimar as probabilidades e densidades de probabilidade desconhecidas. Para problemas de aprendizagem supervisionada, a estimação das $P(\omega_i)$ é bastante simples. Sabendo a frequência relativa de aparição de cada classe $\omega_i$ no conjunto de treinamento, pode-se estimar suas $P(\omega_i)$ (desde que o conjunto de treinamento seja uma boa representação do ``mundo real"). Contudo, estimar as $p(\boldsymbol{x}|\omega_i)$ é complicado quando se tem poucos dados, especialmente quando a dimensionalidade de $\boldsymbol{x}$ aumenta. Uma maneira mais prática é assumir cada $p(\boldsymbol{x}|\omega_i)$ como uma gaussiana, cujas média e matriz de covariância são dadas por $\boldsymbol{\mu}_i$ e $\boldsymbol{\Sigma}_i$. Logo, o problema passa de estimar uma função desconhecida $p(\boldsymbol{x}|\omega_i)$ para estimar os \textbf{parâmetros} $\boldsymbol{\mu}_i$ e $\boldsymbol{\Sigma}_i$.

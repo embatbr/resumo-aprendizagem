@@ -63,7 +63,7 @@ if __name__ == '__main__':
     if not os.path.exists(OUTPUTS_DIR):
         os.mkdir(OUTPUTS_DIR)
 
-    fig = pylab.figure()
+    pylab.subplot(2,1,1)
     pylab.plot(data1a.T[0], data1a.T[1], 'r.')
     pylab.plot(data1b.T[0], data1b.T[1], 'r.')
     pylab.plot(data2.T[0], data2.T[1], 'b.')
@@ -72,9 +72,8 @@ if __name__ == '__main__':
     pylab.plot(means2.T[0], means2.T[1], 'bo')
     pylab.xlabel('$x_1$')
     pylab.ylabel('$x_2$')
-    pylab.savefig('%ssamples_by_class.png' % OUTPUTS_DIR)
 
-    fig = pylab.figure()
+    pylab.subplot(2,1,2)
     pylab.plot(data1a.T[0], data1a.T[1], 'g.')
     pylab.plot(data1b.T[0], data1b.T[1], 'y.')
     pylab.plot(data2.T[0], data2.T[1], 'b.')
@@ -83,6 +82,6 @@ if __name__ == '__main__':
     pylab.plot(means2.T[0], means2.T[1], 'bo')
     pylab.xlabel('$x_1$')
     pylab.ylabel('$x_2$')
-    pylab.savefig('%ssamples_by_cluster.png' % OUTPUTS_DIR)
+    pylab.savefig('%ssamples.png' % OUTPUTS_DIR)
 
     pylab.show()

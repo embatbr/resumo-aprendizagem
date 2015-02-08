@@ -282,4 +282,14 @@ Para a estimação dos parâmetros, será utilizada a técnica da \textbf{máxim
 
 \subsection{Máxima-Verossimilhança}
 
+Estimação por Máxima-Verossimilhança (Maximum-Likelihood, ML) ``vê" os parâmetros como quantidades cujos valores são fixos, mas desconhecidos. A melhor estimativa de seus valores é aquela que maximiza a probabilidade de obter as amostras observadas. Este método possui uma gama de atributos atrativos. Primeiramente, possui quase sempre boas propriedades de convergência quando o número de amostras de treinamento aumenta. Além disso, ML geralmente é mais simples que métodos alternativos, tais como técnicas bayesianas.
+
+\subsubsection*{Princípio Geral}
+
+Um conjunto $\mathcal{D}$ de amostras é dividido em conjuntos $\mathcal{D}_j$, para $j = 1, ..., c$, cujas amostras são desenhadas independentemente de acordo com a lei de probabilidade $p(\boldsymbol{x}|\omega_j)$, resultado de variáveis aleatórias independentes e identicamente distribuídas. Assume-se que $p(\boldsymbol{x}|\omega_j)$ tem uma forma paramétrica, como por exemplo $N(\boldsymbol{\mu}_j, \boldsymbol{\Sigma}_j)$, de forma que escreve-se $p(\boldsymbol{x}|\omega_j)$ como $p(\boldsymbol{x}|\omega_j, \boldsymbol{\theta}_j)$, onde $\boldsymbol{\theta}_j$ consiste nos componentes de $\boldsymbol{\mu}_j$ e $\boldsymbol{\Sigma}_j$. O problema torna-se utilizar as informações dadas pelas amostras para obter boas estimativas dos vetores desconhecidos $\boldsymbol{\theta}_j$, para cada $\omega_j$.
+
+Uma simplificação é assumir que as amostras em um $\mathcal{D}_j$ particular apenas provêem informações relevantes aos seus respectivos $\boldsymbol{\theta}_j$.
+
+Usa-se o conjunto $\mathcal{D}$ de amostras de treinamento desenhadas independentemente de $p(\boldsymbol{x}|\boldsymbol{\theta})$ para estimar os $\boldsymbol{\theta}$ desconhecidos.
+
 \end{document}

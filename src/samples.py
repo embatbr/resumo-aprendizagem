@@ -63,6 +63,8 @@ if __name__ == '__main__':
     if not os.path.exists(OUTPUTS_DIR):
         os.mkdir(OUTPUTS_DIR)
 
+    fig = pylab.gcf()
+
     pylab.subplot(2,1,1)
     pylab.plot(data1a.T[0], data1a.T[1], 'r.')
     pylab.plot(data1b.T[0], data1b.T[1], 'r.')
@@ -82,6 +84,7 @@ if __name__ == '__main__':
     pylab.plot(means2.T[0], means2.T[1], 'bo')
     pylab.xlabel('$x_1$')
     pylab.ylabel('$x_2$')
-    pylab.savefig('%ssamples.png' % OUTPUTS_DIR)
 
+    fig.tight_layout()
+    pylab.savefig('%ssamples.png' % OUTPUTS_DIR)
     pylab.show()

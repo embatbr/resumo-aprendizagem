@@ -286,10 +286,52 @@ Estimação por Máxima-Verossimilhança (Maximum-Likelihood, ML) ``vê" os par�
 
 \subsubsection*{Princípio Geral}
 
-Um conjunto $\mathcal{D}$ de amostras é dividido em conjuntos $\mathcal{D}_j$, para $j = 1, ..., c$, cujas amostras são desenhadas independentemente de acordo com a lei de probabilidade $p(\boldsymbol{x}|\omega_j)$, resultado de variáveis aleatórias independentes e identicamente distribuídas. Assume-se que $p(\boldsymbol{x}|\omega_j)$ tem uma forma paramétrica, como por exemplo $N(\boldsymbol{\mu}_j, \boldsymbol{\Sigma}_j)$, de forma que escreve-se $p(\boldsymbol{x}|\omega_j)$ como $p(\boldsymbol{x}|\omega_j, \boldsymbol{\theta}_j)$, onde $\boldsymbol{\theta}_j$ consiste nos componentes de $\boldsymbol{\mu}_j$ e $\boldsymbol{\Sigma}_j$. O problema torna-se utilizar as informações dadas pelas amostras para obter boas estimativas dos vetores desconhecidos $\boldsymbol{\theta}_j$, para cada $\omega_j$.
+Um conjunto $\mathcal{D}$ de amostras é dividido em conjuntos $\mathcal{D}_1, .., \mathcal{D}_c$ cujas amostras são desenhadas independentemente, de acordo com $p(\boldsymbol{x}|\omega_j)$, resultado de variáveis aleatórias independentes e identicamente distribuídas. Assume-se que $p(\boldsymbol{x}|\omega_j)$ tem uma forma paramétrica, como por exemplo $N(\boldsymbol{\mu}_j, \boldsymbol{\Sigma}_j)$, de modo que pode ser escrita como $p(\boldsymbol{x}|\omega_j, \boldsymbol{\theta}_j)$, onde $\boldsymbol{\theta}_j$ consiste nos componentes de $\boldsymbol{\mu}_j$ e $\boldsymbol{\Sigma}_j$. O problema torna-se utilizar as informações dadas pelas amostras para obter boas estimativas dos vetores desconhecidos $\boldsymbol{\theta}_j$, para cada $\omega_j$. Uma simplificação é assumir que as amostras de cada $\mathcal{D}_j$ provêem informações relevantes apenas aos seus respectivos $\boldsymbol{\theta}_j$.
 
-Uma simplificação é assumir que as amostras em um $\mathcal{D}_j$ particular apenas provêem informações relevantes aos seus respectivos $\boldsymbol{\theta}_j$.
+\begin{figure}[ht]
+    \centering
+    \includegraphics[scale=0.35]{maximum-likelihood}
+    \caption{Estimação do parâmetro $\boldsymbol{\hat{\theta}}$, $\boldsymbol{\hat{\theta}}$ achado e $l(\boldsymbol{\hat{\theta}})$.}
+    \label{fig:maximum-likelihood}
+\end{figure}
 
-Usa-se o conjunto $\mathcal{D}$ de amostras de treinamento desenhadas independentemente de $p(\boldsymbol{x}|\boldsymbol{\theta})$ para estimar os $\boldsymbol{\theta}$ desconhecidos.
+Usa-se o conjunto $\mathcal{D}$, composto pelas amostras de treinamento $\boldsymbol{x}_1, ..., \boldsymbol{x}_n$ desenhadas independentemente de $p(\boldsymbol{x}|\boldsymbol{\theta})$, para estimar os $\boldsymbol{\theta}$ desconhecidos, tal que
+
+\begin{equation}
+    p(\mathcal{D}|\boldsymbol{\theta}) = \prod_{k=1}^{n} p(\boldsymbol{x}_k|\boldsymbol{\theta}).
+    \label{eq:pdf_D}
+\end{equation}
+
+\noindent A densidade $p(\mathcal{D}|\boldsymbol{\theta})$ é conhecida como a \textbf{verossimilhança} de $\boldsymbol{\theta}$ em relação às amostras, e sua estimativa máxima é, por definição, o valor $\boldsymbol{\hat{\theta}}$ que maximiza  $p(\mathcal{D}|\boldsymbol{\theta})$ (\figureref{maximum-likelihood}).
+
+Devido a ser monotonicamente crescente e mais fácil de trabalhar que a verossimilhança, o uso da log-verossimilhança
+
+\begin{equation}
+    l(\boldsymbol{\theta}) \equiv \ln p(\mathcal{D}|\boldsymbol{\theta}) = \sum_{k=1}^{n} p(\boldsymbol{x}_k|\boldsymbol{\theta})
+    \label{eq:log_likelihood}
+\end{equation}
+
+\noindent é preferível. Logo, a solução para $\boldsymbol{\hat{\theta}}$ é
+
+\begin{equation}
+    \boldsymbol{\hat{\theta}} = \arg\max_{\boldsymbol{\theta}} l(\boldsymbol{\theta}),
+    \label{eq:hat_theta}
+\end{equation}
+
+\noindent onde a dependencia do conjunto de dados $\mathcal{D}$ fica implícito. Se o número de parametros a serem estimados é $p$, então $\boldsymbol{\theta} = (\theta_1, ..., \theta_p)^t$ e $\boldsymbol{\nabla}_{\boldsymbol{\theta}} = (\frac{\partial}{\partial \theta_1}, ..., \frac{\partial}{\partial \theta_p})^t$, e, pela \equationref{log_likelihood}
+
+\begin{equation}
+    \boldsymbol{\nabla}_{\boldsymbol{\theta}} l = \sum_{k=1}^{n} \boldsymbol{\nabla}_{\boldsymbol{\theta}} \ln p(\boldsymbol{x}_k|\boldsymbol{\theta}).
+    \label{eq:gradient_theta_log}
+\end{equation}
+
+Então, um conjunto de condições necessárias para a estimação da máxima verossimilhança para $\boldsymbol{\theta}$ pode ser obtido do conjunto de $p$ equações
+
+\begin{equation}
+    \boldsymbol{\nabla}_{\boldsymbol{\theta}} l = 0.
+    \label{eq:gradient_theta_log_equal_zero}
+\end{equation}
+
+Uma solução $\boldsymbol{\hat{\theta}}$ para \equationref{gradient_theta_log_equal_zero} pode ser uma máximo global, um máximo/mínimo local, ou (raramente) um ponto de inflexão de $l(\boldsymbol{\theta})$. Se todas as soluções forem achadas, é garantido que representa o máximo verdadeiro, senão deve-se checar todas as soluções individualmente (ou calcular derivadas de segunda ordem) para identificar qual é o ótimo global.
 
 \end{document}

@@ -381,7 +381,7 @@ Fica evidente que para o caso em que apenas $\boldsymbol{\mu}$ é desconhecido, 
 
 \subsubsection*{Gaussiana com $\boldsymbol{\mu}$ e $\boldsymbol{\Sigma}$ desconhecidos}
 
-Este é o caso mais típico, quando $\boldsymbol{\mu}$ e $\boldsymbol{\Sigma}$ são desconhecidos. Desta forma, este parâmetros constituem as componentes do vetor paramétrico $\boldsymbol{\theta}$. Considerando o caso univariado, $\theta_1 = \mu$ e $\theta_2 = \sigma^2$. Então
+Este é o caso mais típico, quando $\boldsymbol{\mu}$ e $\boldsymbol{\Sigma}$ são desconhecidos. Desta forma, este parâmetros constituem as componentes do vetor paramétrico $\boldsymbol{\theta}$, ou seja $\boldsymbol{\theta} = (\boldsymbol{\mu}, \boldsymbol{\Sigma})^t$. Considerando o caso univariado, $\theta_1 = \mu$ e $\theta_2 = \sigma^2$. Então
 
 \begin{equation}
     \ln p(x_k|\boldsymbol{\theta}) = -\frac{1}{2} \ln 2\pi\theta_2 - \frac{1}{2\theta_2}(x_k - \theta_1)^2
@@ -436,5 +436,11 @@ Dando um salto de fé (embora esta seja demonstrável, diferente da cristã) e t
     \boldsymbol{\hat{\Sigma}} = \frac{1}{n} \sum_{k=1}^n (\boldsymbol{x}_k - \boldsymbol{\hat{\mu}})(\boldsymbol{x}_k - \boldsymbol{\hat{\mu}})^t.
     \label{eq:bold_sigma_optimum_case_2}
 \end{equation}
+
+\subsection{Análise de Componentes e Discriminantes}
+
+\texttt{TODO} fazer no final, se tiver tempo
+
+\section{Misturas}
 
 \end{document}

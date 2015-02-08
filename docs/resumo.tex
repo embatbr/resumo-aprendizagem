@@ -39,6 +39,13 @@
         \end{array}
     \right.
 }
+\newcommand{\tworowsmatrix}[2]
+{
+    \begin{bmatrix}
+            #1\\
+            #2
+    \end{bmatrix}
+}
 
 
 \begin{document}
@@ -367,11 +374,67 @@ Neste caso o vetor $\boldsymbol{\theta} = \boldsymbol{\mu}$, levando a $l(\bolds
 
 \begin{equation}
     \boldsymbol{\hat{\mu}} = \frac{1}{n} \sum_{k=1}^{n} \boldsymbol{x}_k.
-    \label{eq:mu_optimum}
+    \label{eq:mu_optimum_case_1}
 \end{equation}
 
 Fica evidente que para o caso em que apenas $\boldsymbol{\mu}$ é desconhecido, a estimativa para a máxima verossimilhança é apenas a média das amostras, às vezes escrita como $\boldsymbol{\hat{\mu}}_n$ para clarificar sua dependência do número de amostras.
 
 \subsubsection*{Gaussiana com $\boldsymbol{\mu}$ e $\boldsymbol{\Sigma}$ desconhecidos}
+
+Este é o caso mais típico, quando $\boldsymbol{\mu}$ e $\boldsymbol{\Sigma}$ são desconhecidos. Desta forma, este parâmetros constituem as componentes do vetor paramétrico $\boldsymbol{\theta}$. Considerando o caso univariado, $\theta_1 = \mu$ e $\theta_2 = \sigma^2$. Então
+
+\begin{equation}
+    \ln p(x_k|\boldsymbol{\theta}) = -\frac{1}{2} \ln 2\pi\theta_2 - \frac{1}{2\theta_2}(x_k - \theta_1)^2
+    \label{eq:log_likelihood_mu_sigma_univar}
+\end{equation}
+
+\noindent e seu gradiente é
+
+\begin{equation}
+    \boldsymbol{\nabla}_{\boldsymbol{\theta}} l = \boldsymbol{\nabla}_{\boldsymbol{\theta}} \ln p(x_k|\boldsymbol{\theta}) = \tworowsmatrix{\frac{1}{\theta_2}(x_k - \theta_1)}{-\frac{1}{2\theta_2} + \frac{(x_k - \theta_1)^2}{2\theta_2^2}}
+    \label{eq:grad_log_likelihood_mu_sigma_univar}
+\end{equation}
+
+\noindent e pela \equationref{nabla_mu_log_equals_zero} tem-se
+
+\begin{equation}
+    \sum_{k=1}^n \frac{1}{\hat{\theta_2}}(x_k - \hat{\theta_1}) = 0
+    \label{eq:grad_log_likelihood_mu_sigma_univar_theta_1}
+\end{equation}
+
+\noindent e
+
+\begin{equation}
+    -\sum_{k=1}^n \frac{1}{2\hat{\theta_2}} + \sum_{k=1}^n \frac{(x_k - \hat{\theta_1})^2}{2\hat{\theta_2}^2} = 0,
+    \label{eq:grad_log_likelihood_mu_sigma_univar_theta_2}
+\end{equation}
+
+\noindent Rearrumando tudo, tem-se
+
+\begin{equation}
+    \hat{\mu} = \frac{1}{n} \sum_{k=1}^n x_k
+    \label{eq:mu_optimum_case_2}
+\end{equation}
+
+\noindent e
+
+\begin{equation}
+    \hat{\sigma}^2 = \frac{1}{n} \sum_{k=1}^n (x_k - \hat{\mu})^2.
+    \label{eq:sigma_optimum_case_2}
+\end{equation}
+
+Dando um salto de fé (embora esta seja demonstrável, diferente da cristã) e trocando os $\hat{\mu}$ e $\hat{\sigma}$ por $\boldsymbol{\hat{\mu}}$ e $\boldsymbol{\hat{\Sigma}}$, respectivamente, tem-se
+
+\begin{equation}
+    \boldsymbol{\hat{\mu}} = \frac{1}{n} \sum_{k=1}^n \boldsymbol{x}_k
+    \label{eq:bold_mu_optimum_case_2}
+\end{equation}
+
+\noindent e
+
+\begin{equation}
+    \boldsymbol{\hat{\Sigma}} = \frac{1}{n} \sum_{k=1}^n (\boldsymbol{x}_k - \boldsymbol{\hat{\mu}})(\boldsymbol{x}_k - \boldsymbol{\hat{\mu}})^t.
+    \label{eq:bold_sigma_optimum_case_2}
+\end{equation}
 
 \end{document}

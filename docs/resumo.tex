@@ -443,4 +443,29 @@ Dando um salto de fé (embora esta seja demonstrável, diferente da cristã) e t
 
 Esta seção trata sobre aprendizado \textbf{não-supervisionado}, no qual as amostras não são rotuladas com suas classes. Existem pelo menos cinco razões básicas para utilizá-lo: (1) coletar e rotular um grande conjunto de dados pode ser extremamente custoso; (2) o procedimento pode ser efetuado na ordem inversa, treinando com um grande número de amostras não rotuladas e então utilizar supervisão para rotular os grupos criados; (3) em muitas aplicações as características dos padrões podem mudar com o tempo; (4) métodos não-supervisionados podem ser utilizados para encontrar características que serão úteis para a categorização; (5) em estágio iniciais de uma investigação, pode ser interessante efetuar análise exploratória de dados para ganhar algum \emph{insight} sobre a natureza ou estrutura dos dados.
 
+\subsection{Mistura de Densidades}
+
+Assume-se que é sabido a estrutura completa de probabilidades para o problema com a exceção dos valores de alguns parâmetros. Mais especificamente, faz-se as seguintes suposições:
+
+\begin{enumerate}\itemsep0pt
+    \item As amostras são provinientes de um número $c$ de amostras.
+    \item $P(\omega_j)$, para $j = 1, ..., c$, são conhecidas.
+    \item As formas das $p(\boldsymbol{x}|\omega_j, \boldsymbol{\theta}_j)$, para $j = 1, ..., c$, são conhecidas.
+    \item Os valores dos vetores $\boldsymbol{\theta}_1, ..., \boldsymbol{\theta}_c$ são desconhecidos.
+    \item Os rótulos são desconhecidos.
+\end{enumerate}
+
+Assume-se que as amostras são obtidas selecionando primeiramente a classe $\omega_j$ com probabilidade $P(\omega_j)$ e então selecionando um $\boldsymbol{x}$ de acordo com a lei de probabilidade $p(\boldsymbol{x}|\omega_j, \boldsymbol{\theta}_j)$. Então, a função de densidade de probabilidade para as amostras é dada por
+
+\begin{equation}
+    p(\boldsymbol{x}|\boldsymbol{\theta}) = \sum_{j=1}^c p(\boldsymbol{x}|\omega_j, \boldsymbol{\theta}_j) P(\omega_j),
+    \label{eq:pdf_mixtures}
+\end{equation}
+
+\noindent onde $\boldsymbol{\theta} = (\boldsymbol{\theta}_1, ..., \boldsymbol{\theta}_c)^t$. A função $p(\boldsymbol{x}|\boldsymbol{\theta})$ é chamada \textbf{densidade de mistura}. As densidades condicionais $p(\boldsymbol{x}|\omega_j, \boldsymbol{\theta}_j)$ são chamadas de \textbf{densidades componentes} e as $P(\omega_j)$ são chamadas de \textbf{parâmetros da mistura} (que podem ser incluídas entre os parâmetros desconhecidos).
+
+O objetivo básico é usar as amostras desenhadas a partir da densidade de misturas para estimar o vetor paramétrico desconhecido $\boldsymbol{\theta}$. Sabendo $\boldsymbol{\theta}$ pode-se decompor a mistura em componentes e usar um classificador por \textbf{estimação a posteriori máxima} (maximum a posteriori, MAP) nas densidades derivadas. Para existir a possibilidade de solução, $\boldsymbol{\theta}$ só pode ter um valor.
+
+\subsection{Estimação por Máxima Verossimilhança}
+
 \end{document}

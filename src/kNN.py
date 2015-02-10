@@ -12,7 +12,7 @@ def kNN(x, k, data):
     num_neighbours = 0
 
     distances = np.linalg.norm(x - data, axis=1)    # euclidian distance
-    indices = distances.argsort()[1 : k + 1]
+    indices = distances.argsort()[: k]
 
     return (indices, distances[indices])
 

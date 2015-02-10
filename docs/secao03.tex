@@ -1,0 +1,67 @@
+\section{Misturas}
+
+\subsection{Introdução}
+
+Esta seção trata sobre aprendizado \textbf{não-supervisionado}, no qual as amostras não são rotuladas com suas classes. Existem pelo menos cinco razões básicas para utilizá-lo: (1) coletar e rotular um grande conjunto de dados pode ser extremamente custoso; (2) o procedimento pode ser efetuado na ordem inversa, treinando com um grande número de amostras não rotuladas e então utilizar supervisão para rotular os grupos criados; (3) em muitas aplicações as características dos padrões podem mudar com o tempo; (4) métodos não-supervisionados podem ser utilizados para encontrar características que serão úteis para a categorização; (5) em estágio iniciais de uma investigação, pode ser interessante efetuar análise exploratória de dados para ganhar algum \emph{insight} sobre a natureza ou estrutura dos mesmos.
+
+\subsection{Mistura de Densidades}
+
+Assume-se que é sabido a estrutura completa de probabilidades para o problema com a exceção dos valores de alguns parâmetros. Mais especificamente, faz-se as seguintes suposições:
+
+\begin{enumerate}\itemsep0pt
+    \item As amostras são provinientes de um número $c$ de amostras.
+    \item $P(\omega_j)$, para $j = 1, ..., c$, são conhecidas.
+    \item As formas das $p(\boldsymbol{x}|\omega_j, \boldsymbol{\theta}_j)$, para $j = 1, ..., c$, são conhecidas.
+    \item Os valores dos vetores $\boldsymbol{\theta}_1, ..., \boldsymbol{\theta}_c$ são desconhecidos.
+    \item Os rótulos são desconhecidos.
+\end{enumerate}
+
+Assume-se que as amostras são obtidas selecionando primeiramente a classe $\omega_j$ com probabilidade $P(\omega_j)$ e então selecionando um $\boldsymbol{x}$ de acordo com a lei de probabilidade $p(\boldsymbol{x}|\omega_j, \boldsymbol{\theta}_j)$. Então, a função de densidade de probabilidade para as amostras é dada por
+
+\begin{equation}
+    p(\boldsymbol{x}|\boldsymbol{\theta}) = \sum_{j=1}^c p(\boldsymbol{x}|\omega_j, \boldsymbol{\theta}_j) P(\omega_j),
+    \label{eq:pdf_mixtures}
+\end{equation}
+
+\noindent onde $\boldsymbol{\theta} = (\boldsymbol{\theta}_1, ..., \boldsymbol{\theta}_c)^t$. A função $p(\boldsymbol{x}|\boldsymbol{\theta})$ é chamada \textbf{densidade de mistura}. As densidades condicionais $p(\boldsymbol{x}|\omega_j, \boldsymbol{\theta}_j)$ são chamadas de \textbf{densidades componentes} e as $P(\omega_j)$ são chamadas de \textbf{parâmetros da mistura} (que podem ser incluídas entre os parâmetros desconhecidos).
+
+O objetivo básico é usar as amostras desenhadas a partir da densidade de misturas para estimar o vetor paramétrico desconhecido $\boldsymbol{\theta}$. Sabendo $\boldsymbol{\theta}$ pode-se decompor a mistura em componentes e usar um classificador por \textbf{estimação a posteriori máxima} (maximum a posteriori, MAP) nas densidades derivadas. Para existir a possibilidade de solução, $\boldsymbol{\theta}$ só pode ter um valor.
+
+\subsection{Estimação por Máxima Verossimilhança}
+
+Supondo um conjunto $\mathcal{D} = \{\boldsymbol{x}_1, .., \boldsymbol{x}_n\}$ de amostras não rotuladas desenhadas independentemente a partir da densidade da \equationref{pdf_mixtures}. A verossimilhança das amostras observadas é dada pela \equationref{pdf_D}. Assumindo $p(\mathcal{D}|\boldsymbol{\theta})$ diferencial, seja $l$ o logaritmo da verossimilhança dado pela \equationref{log_likelihood}
+
+\begin{equation}
+    l(\boldsymbol{\theta}) = \sum_{k=1}^n \ln p(\boldsymbol{x}|\boldsymbol{\theta}) = \sum_{k=1}^n \ln \Bigg{(}\sum_{j=1}^c p(\boldsymbol{x}_k|\omega_j,\boldsymbol{\theta})P(\omega_j)\Bigg{)}.
+    \label{eq:log_mixtures}
+\end{equation}
+
+\noindent e
+
+\begin{equation}
+    \boldsymbol{\nabla_{\theta_i}} l(\boldsymbol{\theta}) = \sum_{k=1}^n \frac{1}{p(\boldsymbol{x}_k|\boldsymbol{\theta})} \boldsymbol{{\nabla_{\theta_i}}} \Bigg{[}\sum_{j=1}^c p(\boldsymbol{x}_k|\omega_j,\boldsymbol{\theta})P(\omega_j)\Bigg{]}.
+    \label{eq:gradient_theta_log_mixtures_1}
+\end{equation}
+
+\noindent Assumindo $\boldsymbol{\theta}_i$ e $\boldsymbol{\theta}_j$ independentes para $i \neq j$, e sendo a probabilidade a posteriori
+
+\begin{equation}
+    P(\omega_i|\boldsymbol{x}_k, \boldsymbol{\theta}) = \frac{p(\boldsymbol{x}_k|\omega_i, \boldsymbol{\theta}_i)P(\omega_i)}{p(\boldsymbol{x}_k|\boldsymbol{\theta})},
+    \label{eq:posteriori_prob_theta}
+\end{equation}
+
+\noindent a \equationref{gradient_theta_log_mixtures_1} pode ser reescrita como
+
+\begin{equation}
+    \boldsymbol{\nabla_{\theta_i}} l = \sum_{k=1}^n P(\omega_i|\boldsymbol{x}_k, \boldsymbol{\theta}) \boldsymbol{\nabla_{\theta_i}} \ln p(\boldsymbol{x}_k|\omega_i, \boldsymbol{\theta}_i).
+    \label{eq:gradient_theta_log_mixtures_2}
+\end{equation}
+
+\noindent Como $\boldsymbol{\nabla_{\theta_i}} l = \boldsymbol{0}$ para o valor de $\boldsymbol{\theta}_i$ que maximiza $l$, a estimativa da máxima-verossimilhança $\boldsymbol{\hat{\theta}}_i$ de satisfazer as condições
+
+\begin{equation}
+    \sum_{k=1}^n P(\omega_i|\boldsymbol{x}_k, \boldsymbol{\hat{\theta}}) \boldsymbol{\nabla_{\hat{\theta}_i}} \ln p(\boldsymbol{x}_k|\omega_i, \boldsymbol{\hat{\theta}}_i) = 0 \text{ para } i = 1, ..., c.
+    \label{eq:gradient_hat_theta_log_mixtures_equals_zero}
+\end{equation}
+
+\noindent Dentre as soluções para estas equações para $\boldsymbol{\hat{\theta}}_i$ encontra-se aquela que maximiza a verossimilhança.

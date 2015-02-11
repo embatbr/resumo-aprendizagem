@@ -23,6 +23,7 @@ if __name__ == '__main__':
     distances = np.linalg.norm(position - arrival, axis=1)
     gbest = position[distances.argsort()[0]]
     speed = np.random.rand(100, 2)
+    max_speed = np.array([5, 5])
 
     fig = pylab.gcf()
     for i in range(100):
@@ -33,9 +34,10 @@ if __name__ == '__main__':
         pylab.plot(gbest.T[0], gbest.T[1], 'g.')
 
         # updating
-        # BUG: speed doesn't stop increasing
         speed = speed + 2*np.random.rand(100, 2)*(best - position) +\
                 2*np.random.rand(100, 2)*(gbest - position)
+        speed.T[0][speed.T[0] > max_speed[0]] = max_speed[0]
+        speed.T[1][speed.T[1] > max_speed[1]] = max_speed[1]
         position = position + speed
 
         # calculating best positions
